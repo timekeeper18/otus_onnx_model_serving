@@ -1,0 +1,12 @@
+services:
+  ml_service:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - AUTH_USERNAME=admin
+      - AUTH_PASSWORD=secret
+      - MODEL_PATH=diabetes_model.onnx
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./app/diabetes_model.onnx:/app/diabetes_model.onnx
