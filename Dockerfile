@@ -16,7 +16,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 
 # Устанавливаем зависимости (без dev-зависимостей)
-RUN poetry install --no-dev --no-interaction --no-ansi
+RUN poetry install --no-dev --no-interaction
 
 # ---------- Финальный образ ----------
 FROM python:3.12-slim

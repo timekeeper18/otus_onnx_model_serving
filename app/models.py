@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field, field_validator
+from typing import Optional
 
 class DiabetesInput(BaseModel):
     Pregnancies: int = Field(..., ge=0, le=20, description="Количество беременностей")
@@ -20,3 +21,27 @@ class DiabetesInput(BaseModel):
 
 class PredictionResponse(BaseModel):
     prediction: int  # 0 или 1
+
+# --- Модели для аутентификации ---
+class UserRegister(BaseModel):
+    username: str = Field(..., min_length=3, max_length=50)
+    password: str = Field(..., min_length=6)
+    role: Optional[str] = "user"  # можно указать только при регистрации, но по умолчанию user
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+class UserOut(BaseModel):
+    id: int
+    username: str
+    role: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    expires_in: int  # секунд
+
+class TokenData(BaseModel):
+    username: str
+    role: str

@@ -3,10 +3,8 @@ services:
     build: .
     ports:
       - "8000:8000"
-    environment:
-      - AUTH_USERNAME=admin
-      - AUTH_PASSWORD=secret
-      - MODEL_PATH=diabetes_model.onnx
-      - LOG_LEVEL=INFO
+    env_file:
+      - .env                # загружает все переменные из .env (секреты, TTL и т.д.)
     volumes:
-      - ./app/diabetes_model.onnx:/app/diabetes_model.onnx
+      - ./diabetes_model.onnx:/app/diabetes_model.onnx   # монтируем модель (если не встроена в образ)
+    restart: unless-stopped
